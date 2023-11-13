@@ -33,7 +33,14 @@
             include "login.php";
           } elseif (isset($_GET['x']) && $_GET['x'] == 'logout') {
             include "proses/proses_logout.php";
-          } else {
+          } elseif (isset($_GET['x']) && $_GET['x'] == 'katmenu') {
+            $page = "katmenu.php";
+            include "main.php";
+            
+          } elseif (isset($_GET['x']) && $_GET['x'] == 'orderitem') {
+            $page = "order_item.php";
+            include "main.php";
+          }else {
             $page = "home.php";
             include "main.php";
           }
