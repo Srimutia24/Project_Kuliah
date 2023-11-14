@@ -256,7 +256,7 @@ $select_menu = mysqli_query($conn, "SELECT id,nama_menu FROM tb_daftar_menu");
                                                     <td><?php echo $row['status'] ?> </td>
                                                     <td><?php echo $row['catatan'] ?> </td>
                                                     <td><?php echo number_format($row['harganya'], 0, ',', '.') ?></td>
-                                                   
+
                                                 </tr>
 
                                             <?php
@@ -326,13 +326,19 @@ $select_menu = mysqli_query($conn, "SELECT id,nama_menu FROM tb_daftar_menu");
                                     <td><?php echo $row['nama_menu'] ?></td>
                                     <td><?php echo number_format($row['harga'], 0, ',', '.') ?></td>
                                     <td><?php echo $row['jumlah'] ?> </td>
-                                    <td><?php echo $row['status'] ?> </td>
+                                    <td> <?php
+                                            if ($row['status'] == 1) {
+                                                echo "<span class='badge text-bg-warning'>Masuk ke dapur</span>";
+                                            } elseif ($row['status'] == 2) {
+                                                echo "<span class='badge text-bg-primary'>Siap saji</span>";
+                                            }
+                                            ?> </td>
                                     <td><?php echo $row['catatan'] ?> </td>
                                     <td><?php echo number_format($row['harganya'], 0, ',', '.') ?></td>
                                     <td>
                                         <div class="d-flex">
-                                            <button class=" <?php echo (!empty ($row['id_bayar'])) ? " btn btn-secondary btn-sm me-1 disabled" : "btn btn-warning btn-sm me-1" ?> " data-bs-toggle="modal" data-bs-target="#ModalEdit<?php echo $row['id_list_order'] ?>"><i class="bi bi-pencil-square"></i></button>
-                                            <button class=" <?php echo (!empty ($row['id_bayar'])) ? " btn btn-secondary btn-sm me-1 disabled" : "btn btn-danger btn-sm me-1" ?> " data-bs-toggle="modal" data-bs-target="#ModalDelete<?php echo $row['id_list_order'] ?>"><i class="bi bi-trash"></i></button>
+                                            <button class=" <?php echo (!empty($row['id_bayar'])) ? " btn btn-secondary btn-sm me-1 disabled" : "btn btn-warning btn-sm me-1" ?> " data-bs-toggle="modal" data-bs-target="#ModalEdit<?php echo $row['id_list_order'] ?>"><i class="bi bi-pencil-square"></i></button>
+                                            <button class=" <?php echo (!empty($row['id_bayar'])) ? " btn btn-secondary btn-sm me-1 disabled" : "btn btn-danger btn-sm me-1" ?> " data-bs-toggle="modal" data-bs-target="#ModalDelete<?php echo $row['id_list_order'] ?>"><i class="bi bi-trash"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -355,8 +361,8 @@ $select_menu = mysqli_query($conn, "SELECT id,nama_menu FROM tb_daftar_menu");
             <?php
             } ?>
             <div>
-                <button class=" <?php echo (!empty ($row['id_bayar'])) ? " btn btn-secondary disabled" : " btn btn-success" ?> "data-bs-toggle="modal" data-bs-target="#tambahItem"><i class="bi bi-plus-circle-fill"></i> Item</button>
-                <button class=" <?php echo (!empty ($row['id_bayar'])) ? " btn btn-secondary disabled" : " btn btn-primary" ?> "data-bs-toggle="modal" data-bs-target="#bayar"><i class="bi bi-cash-coin"></i> Bayar</button>
+                <button class=" <?php echo (!empty($row['id_bayar'])) ? " btn btn-secondary disabled" : " btn btn-success" ?> " data-bs-toggle="modal" data-bs-target="#tambahItem"><i class="bi bi-plus-circle-fill"></i> Item</button>
+                <button class=" <?php echo (!empty($row['id_bayar'])) ? " btn btn-secondary disabled" : " btn btn-primary" ?> " data-bs-toggle="modal" data-bs-target="#bayar"><i class="bi bi-cash-coin"></i> Bayar</button>
             </div>
         </div>
     </div>
