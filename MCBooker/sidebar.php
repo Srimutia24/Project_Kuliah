@@ -17,14 +17,16 @@
                                     <li class="nav-item">
                                         <a class="nav-link ps-2  <?php echo ((isset($_GET['x']) && $_GET['x']=='daftarmc'))? 'active link-light' : 'link-dark' ;?> " href="daftarmc"><i class="bi bi-person-lines-fill"></i> Daftar MC</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link ps-2  <?php echo ((isset($_GET['x']) && $_GET['x']=='kategoriacara') )? 'active link-light' : 'link-dark' ;?> " href="kategoriacara"><i class="bi bi-pencil-square"></i> Kategori Acara</a>
-                                    </li>
+                                    
                                     <li class="nav-item">
                                         <a class="nav-link ps-2  <?php echo ((isset($_GET['x']) && $_GET['x']=='order') )? 'active link-light' : 'link-dark' ;?> " href="order"><i class="bi bi-bag-plus"></i> Order</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link ps-2  <?php echo ((isset($_GET['x']) && $_GET['x']=='konfirmasipesanan') )? 'active link-light' : 'link-dark' ;?> " href="konfirmasipesanan"><i class="bi bi-calendar-check"></i> Konfirmasi Pesanan</a>
+                                    </li>
+                                    <?php if($hasil['level']== 1) {?>
+                                    <li class="nav-item">
+                                        <a class="nav-link ps-2  <?php echo ((isset($_GET['x']) && $_GET['x']=='kategoriacara') )? 'active link-light' : 'link-dark' ;?> " href="kategoriacara"><i class="bi bi-pencil-square"></i> Kategori Acara</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link ps-2  <?php echo ((isset($_GET['x']) && $_GET['x']=='user') )? 'active link-light' : 'link-dark' ;?> " href="user"><i class="bi bi-file-person"></i> User</a>
@@ -32,6 +34,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link ps-2  <?php echo ((isset($_GET['x']) && $_GET['x']=='report') )? 'active link-light' : 'link-dark' ;?> " href="report"><i class="bi bi-flag"></i> Report</a>
                                     </li>
+                                    <?php }?>
                                 </ul>
                             </div>
                         </div>

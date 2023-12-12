@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!empty($_SESSION['username_mcbooker'])) {
+    header("location:home");
+}
+?>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
@@ -128,6 +134,9 @@
                 <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
                 <label class="form-check-label" for="flexCheckDefault">
                     Remember me
+
+                    <br>username : admin@admin.com</br>
+                    password : password
                 </label>
             </div>
             <button class="btn btn-primary w-100 py-2" type="submit" name="submit_validate" value="abc">Login</button>

@@ -59,9 +59,8 @@ if (isset($_GET['x']) && $_GET['x'] == 'home') {
   } else {
     $page = "home.php";
     include "main.php";
-
-
   }
+  
 } elseif (isset($_GET['x']) && $_GET['x'] == 'orderitem') {
   if ($_SESSION['level_decafe'] == 1 || $_SESSION['level_decafe'] == 3) {
     $page = "order_item.php";

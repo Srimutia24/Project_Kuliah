@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (empty($_SESSION['username_mcbooker'])) {
+    header("location:login");
+}
+include "proses/connect.php";
+$query = mysqli_query($conn, "SELECT * FROM tb_user where username='$_SESSION[username_mcbooker]' ");
+$hasil = mysqli_fetch_array($query);
+
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -12,13 +23,13 @@
 
 <body>
     <!--Header-->
-    <?php include "header.php"?>
+    <?php include "header.php" ?>
     <!--end header-->
 
     <div class="container-lg">
         <div class="row">
             <!-- Sidebar -->
-            
+
             <!--end sidebar-->
             <?php include "sidebar.php" ?>
             <!--content-->

@@ -1,12 +1,19 @@
 # Aplikasi penyewaan MC 
 
-## Admin
--melihatlaporan
--menambah/mengubah/menghapus daftar mc
--menambah/mengubah/menghapus user
+## Admin (1)
+-report
+-user
+-pesanan
 
-## Pengguna/Penyedia
--melihat mc dan harga
--memilih mc
--membuat pesanan
+## Pengguna (2)
+-list mc
+-home
+-order
 -mendaftar menjadi mc
+-pesanan
+
+## Penyedia (3)
+-daftar jadi mc
+-edit profil
+-home
+-pesanan
