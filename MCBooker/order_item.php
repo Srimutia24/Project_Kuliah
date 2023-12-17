@@ -1,11 +1,9 @@
 <?php
 include "proses/connect.php";
-date_default_timezone_set('Asia/Jakarta');
-$query = mysqli_query($conn, "SELECT tb_order.*,nama, SUM(harga) AS harganya from tb_order
-left JOIN tb_user ON tb_user.id = tb_order.namamc
+$query = mysqli_query($conn, "SELECT *, SUM(harga) AS harganya from tb_list_order
 left JOIN tb_list_order ON tb_list_order.order = tb_order.id_order
 left JOIN tb_daftarmc ON tb_daftarmc.id = tb_list_order.daftarmc
-group BY id_order
+group BY id_list_order
 ");
 while ($record = mysqli_fetch_array($query)) {
     $result[] = $record;
@@ -15,12 +13,21 @@ while ($record = mysqli_fetch_array($query)) {
 <div class="col-lg-9 mt-2">
     <div class="card">
         <div class="card-header">
-            Halaman Order
+            Halaman Order Item
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col d-flex justify-content-end">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalTambahUser">Tambah Order</button>
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input  type="text" class="form-control " id="kodeorder">
+                        <label for="uploadfoto">Kode Order</label>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control " id="pelanggan">
+                        <label for="uploadfoto">Pelanggan</label>
+                    </div>
                 </div>
             </div>
             <!-- Modal Tambah Order Baru-->

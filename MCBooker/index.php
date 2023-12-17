@@ -18,8 +18,11 @@ if (isset($_GET['x']) && $_GET['x'] == 'home') {
     $page = "user.php";
     include "main.php";
 } elseif (isset($_GET['x']) && $_GET['x'] == 'report') {
-        $page = "report.php";
-        include "main.php";
+    $page = "report.php";
+    include "main.php";
+} elseif (isset($_GET['x']) && $_GET['x'] == 'orderitem') {
+    $page = "order_item.php";
+    include "main.php";
 } elseif (isset($_GET['x']) && $_GET['x'] == 'login') {
     include "login.php";
 } elseif (isset($_GET['x']) && $_GET['x'] == 'logout') {

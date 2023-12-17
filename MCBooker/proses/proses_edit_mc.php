@@ -1,5 +1,6 @@
 <?php
 include "connect.php";
+$id =  (isset($_POST['id'])) ? htmlentities($_POST['id']) : " ";
 $nama_mc = (isset($_POST['nama_mc'])) ? htmlentities($_POST['nama_mc']) : "";
 $profil = (isset($_POST['profil'])) ? htmlentities($_POST['profil']) : "";
 $layanan = (isset($_POST['layanan'])) ? htmlentities($_POST['layanan']) : "";
@@ -37,15 +38,15 @@ if($cek === false) {
 
 if($statusUpload == 0){
     $message = '<script>alert("'.$message.', Gambar tidak dapat diupload");
-                window.location="../daftarmc"</script>';
+                window.location="../menu"</script>';
 }else{
-    $select = mysqli_query($conn, "SELECT * FROM tb_daftarmc WHERE nama_mc= '$nama_mc'");
+    $select = mysqli_query($conn, "SELECT * FROM tb_daftarmc WHERE nama_mc = '$nama_mc'");
     if (mysqli_num_rows($select) > 0){
-    $message = '<script>alert("Nama mc yang dimasukkan telah ada");
-        window.location="../user"</script>';
+    $message = '<script>alert("Nama menu yang dimasukkan telah ada");
+        window.location="../menu"</script>';
     }else{
         if(move_uploaded_file($_FILES['foto']['tmp_name'],$target_file)){
-            $query = mysqli_query($conn, "INSERT INTO tb_daftarmc(foto,nama_mc,profil,layanan,harga,tersedia) values ('" .$kode_rand.$_FILES['foto']['name']."','$nama_mc','$profil','$layanan','$harga','$tersedia')");
+            $query = mysqli_query($conn, "UPDATE tb_daftarmc SET foto='" .$kode_rand.$_FILES['foto']['name']."',nama_mc='$nama_mc',profil='$profil',layanan='$layanan',harga='$harga',tersedia='$tersedia' WHERE id='$id'");
             if ($query) {
                 $message = '<script>alert("Data berhasil dimasukkan");
             window.location="../daftarmc"</script>';
