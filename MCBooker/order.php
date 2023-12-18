@@ -28,13 +28,13 @@ while ($record = mysqli_fetch_array($query)) {
                 <div class="modal-dialog modal-lg modal-fullscreen-md-down">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Order Makanan dan Minuman</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Order Mc yang Akan di Sewa</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <form class="needs-validation" novalidate action="proses/proses_input_order.php " method="post">
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-6">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="uploadfoto" name="kode_order" value="<?php echo date('ymdHi' . rand(100, 999))  ?>" readonly>
                                             <label for="uploadfoto">Kode Order</label>
@@ -43,21 +43,32 @@ while ($record = mysqli_fetch_array($query)) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-6">
                                         <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="meja" placeholder="Nomor Meja" name="meja" required>
-                                            <label for="meja">Meja</label>
+                                            <input type="text" class="form-control" id="meja" placeholder="Nama Pelanggan" name="pelanggan" required>
+                                            <label for="pelanggan">Nama Pelanggan</label>
                                             <div class="invalid-feedback">
-                                                Masukkan Meja.
+                                                Masukkan Pelanggan.
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-7">
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="pelanggan" placeholder="Nama Pelanggan" name="pelanggan" required>
-                                            <label for="pelanggan">Nama Pelanggan</label>
+                                            <input type="text" class="form-control" id="pelanggan" placeholder="Alamat" name="alamat" required>
+                                            <label for="pelanggan">Alamat</label>
                                             <div class="invalid-feedback">
-                                                Masukkan Nama Pelanggan.
+                                                Masukkan Alamat.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="pelanggan" placeholder="Alamat" name="waktu_acara" required>
+                                            <label for="pelanggan">Waktu Acara</label>
+                                            <div class="invalid-feedback">
+                                                Masukkan Waktu Acara.
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +89,7 @@ while ($record = mysqli_fetch_array($query)) {
 
             <?php
             if (empty($result)) {
-                echo "Data menu makanan atau minuman tidak ada";
+                echo "Data Daftar Mc tidak ada";
             } else {
 
                 foreach ($result as $row) {
@@ -184,6 +195,7 @@ while ($record = mysqli_fetch_array($query)) {
                                 <th scope="col">Status</th>
                                 <th scope="col">Waktu Order</th>
                                 <th scope="col">Waktu Acara</th>
+                                <th scope="col">Alamat</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -196,16 +208,24 @@ while ($record = mysqli_fetch_array($query)) {
                                 <tr>
                                     <th scope="row"><?php echo $no++ ?></th>
 
-                                    <td><?php echo $row['kode_order'] ?></td>
+                                    <td><?php echo $row['id_order'] ?></td>
                                     <td><?php echo $row['pelanggan'] ?></td>
                                     <td><?php echo $row['harganya'] ?></td>
-                                    <td><?php echo $row['namamc'] ?></td>
+                                    <td><?php $namamc = $row['namamc'];
+                                    if ($namamc == 1){
+                                        echo "fadli";
+                                    } elseif ($namamc == 2){
+                                        echo "nia";
+                                    }
+                                    ?>
+                                </td>
                                     <td><?php echo $row['status'] ?></td>
                                     <td><?php echo $row['waktu_order'] ?></td>
                                     <td><?php echo $row['waktu_acara'] ?></td>
+                                    <td><?php echo $row['alamat'] ?></td>
                                     <td>
                                         <div class="d-flex">
-                                            <button class="btn btn-info btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalView<?php echo $row['id_order'] ?>"><i class="bi bi-eye"></i></button>
+                                        <a class="btn btn-info btn-sm me-1" href="./?x=orderitem&order=  <?php echo $row['id_order'] . "&pelanggan=" . $row['pelanggan'] . "&alamat=" . $row['alamat'] ?>"><i class="bi bi-eye"></i></a>
                                             <button class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalEdit<?php echo $row['id_order'] ?>"><i class="bi bi-pencil-square"></i></button>
                                             <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalDelete<?php echo $row['id_order'] ?>"><i class="bi bi-trash"></i></button>
                                         </div>
