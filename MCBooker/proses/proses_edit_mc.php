@@ -12,7 +12,7 @@ $target_dir = "../assets/img/".$kode_rand;
 $target_file = $target_dir.basename($_FILES['foto']['name']);
 $imageType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION)); 
 
-if (!empty($_POST['input_menu_validate'])) {
+if (!empty($_POST['input_daftarmc_validate'])) {
 // Cek apakah gambar atau bukan
 $cek = getimagesize($_FILES['foto']['tmp_name']);
 if($cek === false) {
@@ -38,12 +38,12 @@ if($cek === false) {
 
 if($statusUpload == 0){
     $message = '<script>alert("'.$message.', Gambar tidak dapat diupload");
-                window.location="../menu"</script>';
+                window.location="../daftarmc"</script>';
 }else{
     $select = mysqli_query($conn, "SELECT * FROM tb_daftarmc WHERE nama_mc = '$nama_mc'");
     if (mysqli_num_rows($select) > 0){
-    $message = '<script>alert("Nama menu yang dimasukkan telah ada");
-        window.location="../menu"</script>';
+    $message = '<script>alert("Nama daftarmc yang dimasukkan telah ada");
+        window.location="../daftarmc"</script>';
     }else{
         if(move_uploaded_file($_FILES['foto']['tmp_name'],$target_file)){
             $query = mysqli_query($conn, "UPDATE tb_daftarmc SET foto='" .$kode_rand.$_FILES['foto']['name']."',nama_mc='$nama_mc',profil='$profil',layanan='$layanan',harga='$harga',tersedia='$tersedia' WHERE id='$id'");

@@ -12,8 +12,8 @@ if (!empty($_POST['input_order_validate'])) {
         window.location="../order"</script>';
     } else {
 
-        $query = mysqli_query($conn, "INSERT INTO tb_order (id_order,pelanggan,alamat,waktu_acara,namamc)
-    values ('$kode_order','$pelanggan','$alamat','$waktu_acara','$_SESSION[id_mcbooker]') ");
+        $query = mysqli_query($conn, "INSERT INTO tb_order (id_order,pelanggan,alamat,waktu_acara)
+    values ('$kode_order','$pelanggan','$alamat','$waktu_acara') ");
         if ($query) {
             $message = '<script>alert("Data berhasil dimasukkan");
         window.location="../?x=orderitem&order='.$kode_order.'&pelanggan='.$pelanggan.'&alamat='.$alamat.'&waktu_acara='.$waktu_acara.'"</script>';

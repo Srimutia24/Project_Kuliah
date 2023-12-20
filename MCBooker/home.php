@@ -1,12 +1,12 @@
 <?php
 include "proses/connect.php";
 
-$query = mysqli_query($conn, "SELECT * FROM tb_daftar_menu");
+$query = mysqli_query($conn, "SELECT * FROM tb_daftarmc");
 while ($row = mysqli_fetch_array($query)) {
     $result[] = $row;
 }
 
-$query_chart = mysqli_query($conn, "SELECT nama_menu, tb_daftar_menu.id, SUM(tb_list_order.jumlah) AS total_jumlah FROM tb_daftar_menu LEFT JOIN tb_list_order ON tb_daftar_menu.id = tb_list_order.menu GROUP BY tb_daftar_menu.id ORDER BY tb_daftar_menu.id ASC");
+$query_chart = mysqli_query($conn, "SELECT nama_mc, tb_daftarmc.id, SUM(tb_list_order.jumlahdp) AS total_jumlah FROM tb_daftarmc LEFT JOIN tb_list_order ON tb_daftarmc.id = tb_list_order.daftarmc GROUP BY tb_daftarmc.id ORDER BY tb_daftarmc.id ASC");
 
 // $result_chart = array();
 while ($record_chart = mysqli_fetch_array($query_chart)) {
@@ -50,13 +50,13 @@ $string_jumlah_pesanan = implode(',', $array_jumlah_pesanan);
                 $firstSlide = false;
             ?>
                 <div class="carousel-item <?php echo $aktif ?>">
-                    <img src="assets/img/<?php echo $data['foto'] ?>" class="img-fluid" style="height: 250px; width:1000px; object-fit : cover" alt="...">
+                    <img src="assets/img/<?php echo $data['foto'] ?>" class="img-fluid" style="height: 400px; width: 900px; object-fit : cover" alt="...">
                     <div class="carousel-caption d-none d-md-block">
                         <h5>
-                            <?php echo $data['nama_menu'] ?>
+                            <?php echo $data['nama_mc'] ?>
                         </h5>
                         <p>
-                            <?php echo $data['keterangan'] ?>
+                            <?php echo $data['profil'] ?>
                         </p>
                     </div>
                 </div>
@@ -76,55 +76,15 @@ $string_jumlah_pesanan = implode(',', $array_jumlah_pesanan);
     <!--Judul -->
     <div class="card mt-4 border-0 bg-light">
         <div class="card-body text-center">
-            <h5 class="card-title">DECAFE - APLIKASI PEMESANAN MAKANAN DAN MINUMAN CAFE</h5>
-            <p class="card-text"> Aplikasi pemesanan makanan dan minuman yang mudah dan praktis.Nikmati beragam menu makanan
-                dan minuman favorit kalian dengan beberapa klik. Pesan, bayar dan lacak pesanan anda dengan mudah melalui
+            <h5 class="card-title">MCBOOKER - APLIKASI PEMESANAN DAN PENYEWAAN JASA MC </h5>
+            <p class="card-text"> Aplikasi pemesanan dalam meyewa jasa mc untuk setiap acara yang kamu ingin adakan.Nikmati acara terbaikmu dengan pilihan mc yang tepat.Caranya hanya dengan kalian cari tau mc mana yang kalian inginkan  dengan beberapa klik. Pesan, bayar dan lacak pesanan anda dengan mudah melalui
                 Aplikasi ini.
             </p>
-            <a href="order" class="btn btn-primary">Buat Order</a>
+            <a href="daftarmc" class="btn btn-primary">List Daftar MC</a>
+
         </div>
     </div>
     <!--Akhir Judul -->
 
-    <!--Chart-->
-    <div class="card mt-4 border-0 bg-light">
-        <div class="card-body text-center">
-            <div>
-                <canvas id="myChart"></canvas>
-            </div>
-            <script>
-                const ctx = document.getElementById('myChart');
 
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: [<?php echo $string_menu ?>],
-                        datasets: [{
-                            label: 'Jumlah Porsi Terjual',
-                            data: [<?php echo $string_jumlah_pesanan ?>],
-                            borderWidth: 1,
-                            backgroundColor: [
-                                'rgba(245, 39, 102,0.45)',
-                                'rgba(0, 96, 234, 0.64)',
-                                'rgba(234,255,93, 0.64)',
-
-                                'rgba(0,202,27, 0.64)',
-                                'rgba(195,20,239, 0.64)',
-                                'rgba(246,150,52, 0.64)',
-
-                            ]
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            </script>
-        </div>
-    </div>
-    <!--Akhir Chart -->
 </div>

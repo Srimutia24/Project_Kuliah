@@ -1,11 +1,12 @@
 <?php
 include "proses/connect.php";
 date_default_timezone_set('Asia/Jakarta');
-$query = mysqli_query($conn, "SELECT tb_order.*,nama, SUM(harga) AS harganya from tb_order
-left JOIN tb_user ON tb_user.id = tb_order.namamc
-left JOIN tb_list_order ON tb_list_order.order = tb_order.id_order
+$query = mysqli_query($conn, "SELECT tb_order.*,tb_bayar.*,nama, SUM(harga) AS harganya from tb_order
+left JOIN tb_user ON tb_user.id = tb_order.id_order
+left JOIN tb_list_order ON tb_list_order.kode_order = tb_order.id_order
 left JOIN tb_daftarmc ON tb_daftarmc.id = tb_list_order.daftarmc
-group BY id_order
+LEFT JOIN tb_bayar ON tb_bayar.id_bayar = tb_order.id_order
+group BY id_order ORDER BY waktu_order DESC
 ");
 while ($record = mysqli_fetch_array($query)) {
     $result[] = $record;
@@ -65,7 +66,7 @@ while ($record = mysqli_fetch_array($query)) {
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-floating mb-3">
-                                            <input type="text" class="form-control" id="pelanggan" placeholder="Alamat" name="waktu_acara" required>
+                                            <input type="date" class="form-control" id="pelanggan" placeholder="Alamat" name="waktu_acara" required>
                                             <label for="pelanggan">Waktu Acara</label>
                                             <div class="invalid-feedback">
                                                 Masukkan Waktu Acara.
@@ -110,30 +111,41 @@ while ($record = mysqli_fetch_array($query)) {
                                 <div class="modal-body">
                                     <form class="needs-validation" novalidate action="proses/proses_edit_order.php " method="post">
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-6">
                                                 <div class="form-floating mb-3">
-                                                    <input readonly type="text" class="form-control" id="uploadfoto" name="kode_order" value="<?php echo $row['id_order'] ?>" readonly>
+                                                    <input readonly type="text" class="form-control" id="uploadfoto" name="kode_order" value="<?php echo $row['id_order']  ?>" readonly>
                                                     <label for="uploadfoto">Kode Order</label>
                                                     <div class="invalid-feedback">
                                                         Masukkan Kode Order.
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-6">
                                                 <div class="form-floating mb-3">
-                                                    <input type="number" class="form-control" id="meja" placeholder="Nomor Meja" name="meja" required value="<?php echo $row['meja'] ?>">
-                                                    <label for="meja">Meja</label>
+                                                    <input type="text" class="form-control" id="meja" placeholder="Nama Pelanggan" name="pelanggan" value="<?php echo $row['pelanggan']  ?>" required>
+                                                    <label for="pelanggan">Nama Pelanggan</label>
                                                     <div class="invalid-feedback">
-                                                        Masukkan Meja.
+                                                        Masukkan Pelanggan.
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-7">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
                                                 <div class="form-floating mb-3">
-                                                    <input type="text" class="form-control" id="pelanggan" placeholder="Nama Pelanggan" name="pelanggan" required value="<?php echo $row['pelanggan'] ?>">
-                                                    <label for="pelanggan">Nama Pelanggan</label>
+                                                    <input type="text" class="form-control" id="pelanggan" placeholder="Alamat" name="alamat" value="<?php echo $row['alamat']  ?>" required>
+                                                    <label for="pelanggan">Alamat</label>
                                                     <div class="invalid-feedback">
-                                                        Masukkan Nama Pelanggan.
+                                                        Masukkan Alamat.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-floating mb-3">
+                                                    <input type="date" class="form-control" id="pelanggan" placeholder="Alamat" name="waktu_acara" value="<?php echo $row['waktu_acara']  ?>" required>
+                                                    <label for="pelanggan">Waktu Acara</label>
+                                                    <div class="invalid-feedback">
+                                                        Masukkan Waktu Acara.
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,7 +203,6 @@ while ($record = mysqli_fetch_array($query)) {
                                 <th scope="col">Kode Order</th>
                                 <th scope="col">Pelanggan</th>
                                 <th scope="col">Total Harga</th>
-                                <th scope="col">Nama MC</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Waktu Order</th>
                                 <th scope="col">Waktu Acara</th>
@@ -210,24 +221,17 @@ while ($record = mysqli_fetch_array($query)) {
 
                                     <td><?php echo $row['id_order'] ?></td>
                                     <td><?php echo $row['pelanggan'] ?></td>
-                                    <td><?php echo $row['harganya'] ?></td>
-                                    <td><?php $namamc = $row['namamc'];
-                                    if ($namamc == 1){
-                                        echo "fadli";
-                                    } elseif ($namamc == 2){
-                                        echo "nia";
-                                    }
-                                    ?>
-                                </td>
-                                    <td><?php echo $row['status'] ?></td>
+                                    <td><?php echo number_format((int)$row['harganya'],0,',','.' ) ?></td>
+                                    <td><?php echo (!empty ($row['id_bayar'])) ? "<span class='badge text-bg-success'>dibayar</span>" : "" ; ?></td>
                                     <td><?php echo $row['waktu_order'] ?></td>
                                     <td><?php echo $row['waktu_acara'] ?></td>
                                     <td><?php echo $row['alamat'] ?></td>
                                     <td>
                                         <div class="d-flex">
-                                        <a class="btn btn-info btn-sm me-1" href="./?x=orderitem&order=  <?php echo $row['id_order'] . "&pelanggan=" . $row['pelanggan'] . "&alamat=" . $row['alamat'] ?>"><i class="bi bi-eye"></i></a>
-                                            <button class="btn btn-warning btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalEdit<?php echo $row['id_order'] ?>"><i class="bi bi-pencil-square"></i></button>
-                                            <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#ModalDelete<?php echo $row['id_order'] ?>"><i class="bi bi-trash"></i></button>
+                                            <a class="btn btn-info btn-sm me-1" href="./?x=orderitem&order=  <?php echo $row['id_order'] . "&pelanggan=" . $row['pelanggan'] . "&alamat=" . $row['alamat'] . "&waktu_acara=" . $row['waktu_acara'] ?>"><i class="bi bi-eye"></i></a>
+                                            <button class=" <?php echo (!empty($row['id_bayar'])) ? " btn btn-secondary btn-sm me-1 disabled" : "btn btn-warning btn-sm me-1" ?> " data-bs-toggle="modal" data-bs-target="#ModalEdit<?php echo $row['id_order'] ?>"><i class="bi bi-pencil-square"></i></button>
+                                            <button class=" <?php echo (!empty($row['id_bayar'])) ? " btn btn-secondary btn-sm me-1 disabled" : "btn btn-danger btn-sm me-1" ?> "  data-bs-toggle="modal" data-bs-target="#ModalDelete<?php echo $row['id_order'] ?>"><i class="bi bi-trash"></i></button>
+                                        </div>
                                         </div>
                                     </td>
                 </div>

@@ -23,6 +23,9 @@ if (isset($_GET['x']) && $_GET['x'] == 'home') {
 } elseif (isset($_GET['x']) && $_GET['x'] == 'orderitem') {
     $page = "order_item.php";
     include "main.php";
+}  elseif (isset($_GET['x']) && $_GET['x'] == 'viewitem') {
+    $page = "view_item.php";
+    include "main.php";
 } elseif (isset($_GET['x']) && $_GET['x'] == 'login') {
     include "login.php";
 } elseif (isset($_GET['x']) && $_GET['x'] == 'logout') {

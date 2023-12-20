@@ -114,7 +114,7 @@ while ($record = mysqli_fetch_array($query)) {
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-floating mb-3">
-                                                    <input disabled type="text" class="form-control" id="floatingInput" value="<?php echo $row['nama_mc'] ?>">
+                                                    <input disabled type="text" class="form-control" id="floatingInput" value="<?php echo $row['nama_mc'] ?>" required>
                                                     <label for="floatingInput">Nama MC</label>
                                                     <div class="invalid-feedback">
                                                         Masukkan Nama MC.
@@ -125,7 +125,7 @@ while ($record = mysqli_fetch_array($query)) {
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-floating mb-3">
-                                                    <input disabled type="text" class="form-control" id="floatingInput" value="<?php echo $row['profil'] ?>">
+                                                    <input disabled type="text" class="form-control" id="floatingInput" value="<?php echo $row['profil'] ?>" required>
                                                     <label for="floatingPassword">Profil</label>
                                                 </div>
                                             </div>
@@ -133,13 +133,13 @@ while ($record = mysqli_fetch_array($query)) {
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="form-floating mb-3">
-                                                    <input disabled type="text" class="form-control" id="floatingInput" value="<?php echo $row['layanan'] ?>">
+                                                    <input disabled type="text" class="form-control" id="floatingInput" value="<?php echo $row['layanan'] ?>" required>
                                                     <label for="floatingPassword">Layanan</label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-floating mb-3">
-                                                    <input disabled type="number" class="form-control" id="floatingInput" value="<?php echo $row['harga'] ?>">
+                                                    <input disabled type="number" class="form-control" id="floatingInput" value="<?php echo $row['harga'] ?>" required>
                                                     <label for="floatingInput">Harga</label>
                                                     <div class="invalid-feedback">
                                                         Masukkan Harga Menu
@@ -148,7 +148,7 @@ while ($record = mysqli_fetch_array($query)) {
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-floating mb-3">
-                                                    <input disabled type="text" class="form-control" id="floatingInput" value="<?php echo $row['tersedia'] ?>">
+                                                    <input disabled type="text" class="form-control" id="floatingInput" value="<?php echo $row['tersedia'] ?>" required>
                                                     <label for="floatingInput">Tersedia</label>
                                                     <div class="invalid-feedback">
                                                         Masukkan Waktu yang Tersedia.
@@ -229,17 +229,17 @@ while ($record = mysqli_fetch_array($query)) {
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-floating mb-3">
-                                                    <input type="number" class="form-control" id="floatingInput" placeholder="Stok" name="tersedia" required value="<?php echo $row['tersedia'] ?>">
+                                                    <input type="text" class="form-control" id="floatingInput" placeholder="Stok" name="tersedia" required value="<?php echo $row['tersedia'] ?>">
                                                     <label for="floatingInput">Waktu yang tersedia</label>
                                                     <div class="invalid-feedback">
-                                                        Pilih Kesiaan.
+                                                        Pilih Kesediaan Waktu.
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary" name="input_menu_validate" value="12345">Save changes</button>
+                                            <button type="submit" class="btn btn-primary" name="input_daftarmc_validate" value="12345">Save changes</button>
                                         </div>
                                     </form>
                                 </div>
@@ -333,3 +333,24 @@ while ($record = mysqli_fetch_array($query)) {
         </div>
     </div>
 </div>
+<script >
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
